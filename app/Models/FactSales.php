@@ -32,4 +32,19 @@ class FactSales extends Model
     {
         return $this->belongsTo(DimProduct::class, 'ProductKey');
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(DimCustomer::class, 'CustomerKey');
+    }
+
+    public function territory()
+    {
+        return $this->belongsTo(DimSalesTerritory::class, 'TerritoryKey');
+    }
+
+    public function shipMethod()
+    {
+        return $this->belongsTo(DimShipMethod::class, 'ShipMethodKey');
+    }
 }

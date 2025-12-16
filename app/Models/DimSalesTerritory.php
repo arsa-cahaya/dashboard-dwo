@@ -18,4 +18,9 @@ class DimSalesTerritory extends Model
         'CountryRegionCode',
         'TerritoryGroup'
     ];
+
+    public function sales()
+    {
+        return $this->hasMany(FactSales::class, 'TerritoryKey');
+    }
 }

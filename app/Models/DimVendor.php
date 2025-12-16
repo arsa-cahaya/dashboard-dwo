@@ -22,4 +22,9 @@ class DimVendor extends Model
     protected $casts = [
         'PreferredStatus' => 'boolean'
     ];
+
+    public function purchasing()
+    {
+        return $this->hasMany(FactPurchasing::class, 'VendorKey');
+    }
 }

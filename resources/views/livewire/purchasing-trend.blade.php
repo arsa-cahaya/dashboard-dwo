@@ -1,104 +1,107 @@
 <div class="row">
-
     <div class="col-12 mb-4">
-        <div class="card border-0 shadow">
+        <div class="card border-0 shadow" style="background-color: #fac0b9">
 
             {{-- HEADER --}}
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+                <div class="d-block mb-3 mb-sm-0">
+                    <div class="fs-5 fw-normal mb-2">
+                        Total Purchasing Cost
+                        <span class="text-muted">
+                            {{ $selectedYear ? '(' . $selectedYear . ')' : '(All Years)' }}
+                        </span>
+                    </div>
 
-                <div>
-                    <h5 class="fw-bold mb-1">Purchasing Cost Trend</h5>
-                    <small class="text-muted">
-                        Total purchasing cost aggregated by time
-                    </small>
+
+                    <h2 class="fs-3 fw-extrabold">
+                        {{ number_format(array_sum($totals), 2) }}
+                    </h2>
+
+                    <div class="small mt-2 text-muted">
+                        @if ($selectedYear)
+                            Purchasing Cost for {{ $selectedYear }}
+                        @else
+                            Aggregated from {{ min($years) }} – {{ max($years) }}
+                        @endif
+                    </div>
+
                 </div>
 
-                {{-- FILTER --}}
-                <div class="d-flex align-items-center gap-2">
-                    <label class="small text-muted mb-0">View:</label>
-                    <select
-                        wire:model="filter"
-                        class="form-select form-select-sm w-auto"
-                    >
-                        <option value="year">Year</option>
-                        <option value="month">Month</option>
+                <div class="d-flex ms-auto align-items-center">
+                    <select wire:model="selectedYear" class="form-select form-select-sm w-auto">
+                        <option value="">All Years</option>
+                        @foreach ($availableYears as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
                     </select>
                 </div>
-
             </div>
 
             {{-- BODY --}}
-            <div class="card-body">
-                {{-- PENTING --}}
-                <div wire:ignore>
-                    <canvas id="purchasingTrendChart" height="140"></canvas>
+            <div class="card-body p-2">
+                <div wire:ignore id="purchasingTrendChart" data-labels='@json($years)'
+                    data-totals='@json($totals)'
+                    class="ct-chart-sales-value ct-double-octave ct-series-g">
                 </div>
             </div>
 
         </div>
     </div>
 
-</div>
+    {{-- CHART SCRIPT --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
+            const el = document.getElementById('purchasingTrendChart');
+            if (!el) return;
 
-    let chartInstance = null;
-    const ctx = document
-        .getElementById('purchasingTrendChart')
-        .getContext('2d');
+            const render = (labels, totals) => {
+                el.innerHTML = '';
 
-    function renderChart(labels, values) {
-
-        if (chartInstance) {
-            chartInstance.destroy();
-        }
-
-        chartInstance = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Purchasing Cost',
-                    data: values,
-                    backgroundColor: '#4e73df',
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true
+                new Chartist.Line(el, {
+                    labels,
+                    series: [totals]
+                }, {
+                    low: 0,
+                    fullWidth: true,
+                    chartPadding: {
+                        right: 20
                     },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return 'Rp ' + context.raw.toLocaleString();
-                            }
+                    lineSmooth: Chartist.Interpolation.simple({
+                        divisor: 2
+                    }),
+
+                    axisY: {
+                        labelInterpolationFnc: function(value) {
+                            if (value >= 1_000_000) return (value / 1_000_000) + 'M';
+                            if (value >= 1_000) return (value / 1_000) + 'k';
+                            return value;
                         }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return 'Rp ' + value.toLocaleString();
+                    },
+
+                    plugins: [
+                        Chartist.plugins.tooltip({
+                            transformTooltipTextFnc: function(value) {
+                                return 'Purchasing: ' + Number(value).toLocaleString();
                             }
-                        }
-                    }
-                }
-            }
+                        })
+                    ]
+                });
+            };
+
+
+            // 🔥 INIT: ambil dari data-* (pasti ada)
+            render(
+                JSON.parse(el.dataset.labels),
+                JSON.parse(el.dataset.totals)
+            );
+
+            // 🔁 UPDATE: dari Livewire
+            window.addEventListener('purchasing-chart-update', e => {
+                render(e.detail.labels, e.detail.totals);
+            });
+
         });
-    }
+    </script>
 
-    window.addEventListener('purchasing-trend-updated', function (event) {
-        renderChart(event.detail.labels, event.detail.values);
-    });
-
-});
-</script>
-@endpush
+</div>

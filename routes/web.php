@@ -57,9 +57,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('/transactions', Transactions::class)->name('transactions');
 
     // Dashboard Category
-    Route::get('/purchasing-trend', PurchasingTrend::class)
-        ->name('purchasing-trend');
-
+    Route::get('/purchasing-trend', PurchasingTrend::class)->name('purchasing-trend');
     Route::get('/cost-by-category', CostByCategory::class)->name('cost-by-category');
     Route::get('/sales-trend', SalesTrend::class)->name('sales-trend');
     Route::get('/top-sales-breakdown', TopSalesBreakdown::class)->name('top-sales-breakdown');

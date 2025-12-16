@@ -21,4 +21,14 @@ class DimProduct extends Model
         'StandardCost',
         'ListPrice'
     ];
+
+    public function sales()
+    {
+        return $this->hasMany(FactSales::class, 'ProductKey');
+    }
+
+    public function purchasing()
+    {
+        return $this->hasMany(FactPurchasing::class, 'ProductKey');
+    }
 }

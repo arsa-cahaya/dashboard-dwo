@@ -19,4 +19,9 @@ class DimCustomer extends Model
         'StoreName',
         'TerritoryID'
     ];
+
+    public function sales()
+    {
+        return $this->hasMany(FactSales::class, 'CustomerKey');
+    }
 }

@@ -23,20 +23,23 @@ class FactPurchasing extends Model
         'LineTotal'
     ];
 
-    // === DIMENSIONS ===
-
     public function time()
     {
-        return $this->belongsTo(DimTime::class, 'TimeKey', 'TimeKey');
-    }
-
-    public function vendor()
-    {
-        return $this->belongsTo(DimVendor::class, 'VendorKey', 'VendorKey');
+        return $this->belongsTo(DimTime::class, 'TimeKey');
     }
 
     public function product()
     {
-        return $this->belongsTo(DimProduct::class, 'ProductKey', 'ProductKey');
+        return $this->belongsTo(DimProduct::class, 'ProductKey');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(DimVendor::class, 'VendorKey');
+    }
+
+    public function shipMethod()
+    {
+        return $this->belongsTo(DimShipMethod::class, 'ShipMethodKey');
     }
 }

@@ -8,62 +8,78 @@ use Illuminate\Support\Facades\DB;
 
 class PurchasingTrend extends Component
 {
-    public string $filter = 'year';
-    public array $labels = [];
-    public array $values = [];
+    public array $years = [];
+    public array $totals = [];
+
+    public array $availableYears = [];
+    public ?string $selectedYear = null;
+
+    public function updatedSelectedYear($value)
+    {
+        $this->selectedYear = $value !== '' ? $value : null;
+        $this->loadData();
+    }
 
     public function mount()
     {
+        $this->selectedYear = null;
+
+        $this->availableYears = FactPurchasing::query()
+            ->join('DimTime', 'factpurchasing.TimeKey', '=', 'DimTime.TimeKey')
+            ->select('DimTime.Year')
+            ->distinct()
+            ->orderBy('DimTime.Year')
+            ->pluck('Year')
+            ->toArray();
+
         $this->loadData();
+
+        // trigger initial render
+        $this->dispatchBrowserEvent('purchasing-chart-init', [
+            'labels' => $this->years,
+            'totals' => $this->totals,
+        ]);
     }
 
-    public function updatedFilter()
-    {
-        $this->loadData();
-    }
 
-    private function loadData(): void
+    private function loadData()
     {
-        $baseQuery = FactPurchasing::join(
-            'dimtime',
-            'factpurchasing.TimeKey',
-            '=',
-            'dimtime.TimeKey'
-        );
+        if ($this->selectedYear === null) {
 
-        if ($this->filter === 'month') {
-            $data = $baseQuery
-                ->select(
-                    DB::raw("CONCAT(dimtime.MonthName, ' ', dimtime.Year) AS label"),
-                    DB::raw("SUM(factpurchasing.LineTotal) AS total_cost")
-                )
-                ->groupBy(
-                    'dimtime.Year',
-                    'dimtime.Month',
-                    'dimtime.MonthName'
-                )
-                ->orderBy('dimtime.Year')
-                ->orderBy('dimtime.Month')
+            // ===== ALL YEARS =====
+            $data = FactPurchasing::query()
+                ->join('DimTime', 'factpurchasing.TimeKey', '=', 'DimTime.TimeKey')
+                ->selectRaw('
+                DimTime.Year AS label,
+                SUM(factpurchasing.LineTotal) AS total
+            ')
+                ->groupBy('DimTime.Year')
+                ->orderBy('DimTime.Year')
                 ->get();
         } else {
-            $data = $baseQuery
-                ->select(
-                    'dimtime.Year AS label',
-                    DB::raw("SUM(factpurchasing.LineTotal) AS total_cost")
-                )
-                ->groupBy('dimtime.Year')
-                ->orderBy('dimtime.Year')
+
+            // ===== PER MONTH (12 BULAN WAJIB MUNCUL) =====
+            $data = DB::table('DimTime')
+                ->leftJoin('factpurchasing', 'DimTime.TimeKey', '=', 'factpurchasing.TimeKey')
+                ->where('DimTime.Year', $this->selectedYear)
+                ->selectRaw('
+                DimTime.Month AS label,
+                COALESCE(SUM(factpurchasing.LineTotal), 0) AS total
+            ')
+                ->groupBy('DimTime.Month')
+                ->orderBy('DimTime.Month')
                 ->get();
         }
 
-        $this->labels = $data->pluck('label')->toArray();
-        $this->values = $data->pluck('total_cost')->toArray();
+        $this->years  = $data->pluck('label')->toArray();
+        $this->totals = $data->pluck('total')->toArray();
 
-        $this->dispatchBrowserEvent('purchasing-trend-updated', [
-            'labels' => $this->labels,
-            'values' => $this->values,
+        $this->dispatchBrowserEvent('purchasing-chart-update', [
+            'labels' => $this->years,
+            'totals' => $this->totals,
         ]);
     }
+
 
     public function render()
     {
