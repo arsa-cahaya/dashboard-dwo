@@ -4,7 +4,7 @@
             <div class="card-header d-sm-flex flex-row align-items-center flex-0">
                 <div class="d-block mb-3 mb-sm-0">
                     <div class="fs-5 fw-normal mb-2">
-                        Total Cost Amount by Category
+                        Total Cost by Category
                     </div>
 
                     <h2 class="fs-3 fw-extrabold">
