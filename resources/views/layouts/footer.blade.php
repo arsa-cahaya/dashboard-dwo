@@ -2,7 +2,11 @@
     <div class="card-body bg-gray-800 text-white pt-4">
         <button type="button" class="btn-close theme-settings-close" aria-label="Close" data-bs-toggle="collapse"
             href="#theme-settings" role="button" aria-expanded="false" aria-controls="theme-settings"></button>
+<<<<<<< HEAD
         <div class="d-flex justify-content-between align-items-center mb-3">
+=======
+        {{-- <div class="d-flex justify-content-between align-items-center mb-3">
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
             <p class="m-0 mb-1 me-4 fs-7">Open source <span role="img" aria-label="gratitude">💛</span></p>
             <a class="github-button" href="https://github.com/themesberg/volt-laravel-admin-dashboard"
                 data-color-scheme="no-preference: dark; light: light; dark: light;" data-icon="octicon-star"
@@ -17,7 +21,11 @@
                     d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z"
                     clip-rule="evenodd"></path>
             </svg>
+<<<<<<< HEAD
         </a>
+=======
+        </a> --}}
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
         <p class="fs-7 text-gray-300 text-center">Available in the following technologies:</p>
         <div class="d-flex justify-content-center">
             <a class="me-3" href="https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard"
@@ -45,7 +53,11 @@
 <footer class="bg-white rounded shadow p-5 mb-4 mt-4">
     <div class="row">
         <div class="col-12 col-md-4 col-xl-6 mb-4 mb-md-0">
+<<<<<<< HEAD
             <p class="mb-0 text-center text-lg-start">© 2019-<span class="current-year"></span>
+=======
+            <p class="mb-0 text-center text-lg-start">© <span class="current-year"></span>
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
             DWO Kelompok 3
             </p>
         </div>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <title>Volt Laravel Dashboard</title>
 <div class="py-4">
     <div class="dropdown">
@@ -30,12 +31,19 @@
         </div>
     </div>
 </div>
+=======
+<title>Global Dashboard</title>
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
 <div class="row">
     <div class="col-12 mb-4">
         <div class="card border-0 shadow" style="background-color: #fac0b9">
             <div class="card-header d-sm-flex flex-row align-items-center flex-0">
                 <div class="d-block mb-3 mb-sm-0">
+<<<<<<< HEAD
                     <div class="fs-5 fw-normal mb-2">Sales Value</div>
+=======
+                    <div class="fs-5 fw-normal mb-2">Test</div>
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
                     <h2 class="fs-3 fw-extrabold">$10,567</h2>
                     <div class="small mt-2"> 
                         <span class="fw-normal me-2">Yesterday</span>                              
@@ -144,6 +152,7 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
 <div class="row">
     <div class="col-12 col-xl-8">
@@ -565,4 +574,6 @@
             </div>
         </div>
     </div>
+=======
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
 </div>
