@@ -2,14 +2,23 @@
     <div class="card-body bg-gray-800 text-white pt-4">
         <button type="button" class="btn-close theme-settings-close" aria-label="Close" data-bs-toggle="collapse"
             href="#theme-settings" role="button" aria-expanded="false" aria-controls="theme-settings"></button>
+<<<<<<< HEAD
+        <div class="d-flex justify-content-between align-items-center mb-3">
+=======
         {{-- <div class="d-flex justify-content-between align-items-center mb-3">
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
             <p class="m-0 mb-1 me-4 fs-7">Open source <span role="img" aria-label="gratitude">💛</span></p>
             <a class="github-button" href="https://github.com/themesberg/volt-laravel-admin-dashboard"
                 data-color-scheme="no-preference: dark; light: light; dark: light;" data-icon="octicon-star"
                 data-size="large" data-show-count="true"
                 aria-label="Star themesberg/volt-bootstrap-5-dashboard on GitHub">Star</a>
+<<<<<<< HEAD
+        </div>
+        <a href="https://themesberg.com/product/laravel/volt-admin-dashboard-template" target="_blank"
+=======
         </div> --}}
         {{-- <a href="https://themesberg.com/product/laravel/volt-admin-dashboard-template" target="_blank"
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
             class="btn btn-secondary d-inline-flex align-items-center justify-content-center mb-3 w-100">
             Download
             <svg class="icon icon-xs ms-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +26,11 @@
                     d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z"
                     clip-rule="evenodd"></path>
             </svg>
+<<<<<<< HEAD
+        </a>
+=======
         </a> --}}
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
         <p class="fs-7 text-gray-300 text-center">Available in the following technologies:</p>
         <div class="d-flex justify-content-center">
             <a class="me-3" href="https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard"
@@ -42,7 +55,11 @@
         </span>
     </div>
 </div>
+<<<<<<< HEAD
+<footer class="p-3 mb-2">
+=======
 {{-- <footer class="p-3 mb-2">
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
     <div class="container">
         <div class="col-12 d-flex align-items-center justify-content-center">
             <div class="col-12 col-md-4 mb-4 mb-md-0 text-lg-center">
@@ -52,4 +69,8 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+</footer>
+=======
 </footer> --}}
+>>>>>>> 4e6d9f2e2e3c9d56c03a6b917c96f3b2cae2a5b8
