@@ -7,29 +7,42 @@ use Livewire\Component;
 
 class CostSalesComparison extends Component
 {
-    public $scatterData = [];
+    public $chartData = [];
 
     public function mount()
     {
-        // Contoh: ambil data cost & sales per produk
-        $sales = DB::table('factsales')
-            ->select('ProductKey', DB::raw('SUM(linetotal) as total_sales'))
-            ->groupBy('ProductKey');
+        // Total sales per year
+        $sales = DB::table('factsales as f')
+            ->join('dimtime as t', 'f.TimeKey', '=', 't.TimeKey')
+            ->select('t.Year', DB::raw('SUM(f.LineTotal) as total_sales'))
+            ->groupBy('t.Year');
 
-        $costs = DB::table('factpurchasing')
-            ->select('ProductKey', DB::raw('SUM(linetotal) as total_cost'))
-            ->groupBy('ProductKey');
+        // Total cost per year
+        $costs = DB::table('factpurchasing as fp')
+            ->join('dimtime as t', 'fp.TimeKey', '=', 't.TimeKey')
+            ->select('t.Year', DB::raw('SUM(fp.LineTotal) as total_cost'))
+            ->groupBy('t.Year');
 
-        $scatter = DB::table(DB::raw("({$sales->toSql()}) as s"))
-            ->mergeBindings($sales) // agar binding parameter ikut
-            ->joinSub($costs, 'c', function ($join) {
-                $join->on('s.ProductKey', '=', 'c.ProductKey');
-            })
-            ->select('s.ProductKey', 's.total_sales', 'c.total_cost')
+        // Gabungkan sales & cost
+        $chart = DB::table(DB::raw("({$sales->toSql()}) as s"))
+            ->mergeBindings($sales)
+            ->leftJoinSub($costs, 'c', 's.Year', '=', 'c.Year')
+            ->select(
+                's.Year',
+                DB::raw('COALESCE(s.total_sales,0) as total_sales'),
+                DB::raw('COALESCE(c.total_cost,0) as total_cost'),
+                DB::raw('(COALESCE(s.total_sales,0) - COALESCE(c.total_cost,0)) / NULLIF(COALESCE(s.total_sales,0),0) * 100 as profit_margin')
+            )
+            ->orderBy('s.Year')
             ->get();
 
-        $this->scatterData = $scatter->map(function ($item) {
-            return [(float) $item->total_cost, (float) $item->total_sales];
+        $this->chartData = $chart->map(function ($item) {
+            return [
+                'year' => $item->Year,
+                'cost' => (float) $item->total_cost,
+                'sales' => (float) $item->total_sales,
+                'profit_margin' => (float) $item->profit_margin
+            ];
         })->toArray();
     }
 
