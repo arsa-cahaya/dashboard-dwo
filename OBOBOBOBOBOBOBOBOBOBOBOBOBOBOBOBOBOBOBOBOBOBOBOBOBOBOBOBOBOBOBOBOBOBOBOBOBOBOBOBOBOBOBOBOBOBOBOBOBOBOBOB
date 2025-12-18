@@ -1,0 +1,24 @@
+*   [33ma38ceb6[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Merge remote-tracking branch 'upstream/master'
+[31m|[m[32m\[m  
+[31m|[m * [33m679f368[m[33m ([m[1;31mupstream/master[m[33m)[m revisi-sales-cost-comparison
+[31m|[m * [33m23631cc[m mondrian
+[31m|[m * [33m3619e15[m cost-vs-sales
+[31m|[m * [33mc69ea7e[m topsalesbreakdown
+* [32m|[m [33m58d7169[m fix: demo.yml
+* [32m|[m [33m1c5a3f2[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m fix: SSH key setup (new)
+* [32m|[m   [33m3b95734[m Merge branch 'master' of https://github.com/arsa-cahaya/dashboard-dwo
+[33m|[m[34m\[m [32m\[m  
+[33m|[m * [32m\[m   [33m7fba7ab[m Merge branch 'master' of https://github.com/arsa-cahaya/dashboard-dwo
+[33m|[m [35m|[m[36m\[m [32m\[m  
+[33m|[m * [36m|[m [32m|[m [33mddd7a17[m[33m ([m[1;31mupstream/main[m[33m)[m first commit
+[33m|[m  [36m/[m [32m/[m  
+* [36m|[m [32m/[m [33me549ac3[m fix: SSH key setup
+[32m|[m [36m|[m[32m/[m  
+[32m|[m[32m/[m[36m|[m   
+* [36m|[m [33m8f2e5de[m revisi maneh
+* [36m|[m [33m4a494de[m revisi-cost by category
+* [36m|[m [33m77e133e[m sales-trend
+* [36m|[m [33mc9e72b7[m cost-by-category
+* [36m|[m [33m1c1d26d[m purchasing-trend
+[36m|[m[36m/[m  
+* [33m4e6d9f2[m connect controller & halaman
